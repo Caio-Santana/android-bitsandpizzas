@@ -2,6 +2,7 @@ package com.sam.bitsandpizzas;
 
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +16,11 @@ public class CaptionedImagesAdapter extends RecyclerView.Adapter<CaptionedImages
 
     private String[] captions;
     private int[] imageIds;
+    private Listener listener;
+
+    interface Listener {
+        void onClick(int position);
+    }
 
     public CaptionedImagesAdapter(String[] captions, int[] imageIds) {
         this.captions = captions;
@@ -31,7 +37,7 @@ public class CaptionedImagesAdapter extends RecyclerView.Adapter<CaptionedImages
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         CardView cardView = holder.cardView;
 
         ImageView imageView = cardView.findViewById(R.id.info_image);
@@ -43,11 +49,22 @@ public class CaptionedImagesAdapter extends RecyclerView.Adapter<CaptionedImages
 
         TextView textView = cardView.findViewById(R.id.info_text);
         textView.setText(captions[position]);
+
+        cardView.setOnClickListener(view -> {
+            if (listener != null) {
+                listener.onClick(position);
+            }
+        });
+
     }
 
     @Override
     public int getItemCount() {
         return captions.length;
+    }
+
+    public void setListener(Listener listener) {
+        this.listener = listener;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

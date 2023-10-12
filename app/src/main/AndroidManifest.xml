@@ -13,10 +13,14 @@
         android:theme="@style/Theme.BitsAndPizzas"
         tools:targetApi="31">
         <activity
-            android:name=".OrderActivity"
+            android:name=".PizzaDetailActivity"
             android:parentActivityName=".MainActivity"
-            android:label="@string/create_order"
             android:exported="false" />
+        <activity
+            android:name=".OrderActivity"
+            android:exported="false"
+            android:label="@string/create_order"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

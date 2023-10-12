@@ -1,5 +1,6 @@
 package com.sam.bitsandpizzas;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
@@ -35,6 +36,12 @@ public class PizzaFragment extends Fragment {
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         pizzaRecycler.setLayoutManager(layoutManager);
+
+        adapter.setListener(position -> {
+            Intent intent = new Intent(getContext(), PizzaDetailActivity.class);
+            intent.putExtra(PizzaDetailActivity.EXTRA_PIZZA_ID, position);
+            getActivity().startActivity(intent);
+        });
 
         return pizzaRecycler;
     }
